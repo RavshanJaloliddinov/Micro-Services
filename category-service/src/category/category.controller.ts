@@ -6,26 +6,26 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller()
 export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(private readonly categoryService: CategoryService) { }
 
 
   @MessagePattern("createCategory")
   create(@Payload() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
   }
-  
+
   @MessagePattern("getAllCategories")
   findAll() {
     return this.categoryService.findAll();
   }
-
+ 
   @MessagePattern("getCategoryByID")
   findOne(@Payload('id') id: number) {
     return this.categoryService.findOne(id);
   }
 
   @MessagePattern("updateCategory")
-  update(@Payload('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
+  update(@Payload() updateCategoryDto: UpdateCategoryDto, id: number) {
     return this.categoryService.update(id, updateCategoryDto);
   }
 
@@ -33,7 +33,7 @@ export class CategoryController {
   @MessagePattern("deleteCategory")
   remove(@Payload("id") id: number) {
     return this.categoryService.remove(id);
-  }
+  } 
 
 
 }

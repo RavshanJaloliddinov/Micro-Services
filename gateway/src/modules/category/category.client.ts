@@ -1,12 +1,13 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientProxy, ClientProxyFactory, Transport } from "@nestjs/microservices";
-import { retry } from "rxjs";
+import { CreateCategoryDto } from "./dtos/create.category.dto";
+
 
 @Injectable()
-export class CategoryClient implements OnModuleInit{
+export class CategoryClient implements OnModuleInit {
     private client: ClientProxy
 
-    constructor(){
+    constructor() {
         this.client = ClientProxyFactory.create({
             transport: Transport.TCP,
             options: {
@@ -16,22 +17,26 @@ export class CategoryClient implements OnModuleInit{
         })
     }
 
-    async  onModuleInit() {
+    async onModuleInit() {
         await this.client.connect()
     }
     getAllCategories() {
-        return this.client.send("getAllCategories", undefined)
-    }
+        return this.client.send("getAllCategories", {})
+    }   
 
     createCategory(name: string) {
-        return this.client.send('createCategory', {name})
+        return this.client.send('createCategory', { name })
     }
 
-    deleteCategory(id: string){
-        return this.client.send('deleteCategory', {id})
+    deleteCategory(id: number) {
+        return this.client.send('deleteCategory', { id })
     }
 
-    getCategoryById(id:number){
-        return this.client.send('getCategoryById', {id})
+    getCategoryById(id: number) {
+        return this.client.send('getCategoryById', { id })
+    }
+
+    updateCategory(payload: CreateCategoryDto, id: number) {
+        return this.client.send('updateCategory', { ...payload, id })
     }
 }

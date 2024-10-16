@@ -35,9 +35,9 @@ export class CategoryService {
     )
   }
 
-  remove(id: number) {
-    return this.categoryModel.destroy(
+  async remove(id: number) {
+    return await this.categoryModel.destroy(
       { where: { id } }
-    )
+      )
   }
 }

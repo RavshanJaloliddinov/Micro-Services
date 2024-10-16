@@ -1,4 +1,4 @@
-import { Controller, Body, Param } from '@nestjs/common';
+import { Controller, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -18,22 +18,22 @@ export class CategoryController {
   findAll() {
     return this.categoryService.findAll();
   }
- 
-  @MessagePattern("getCategoryByID")
-  findOne(@Payload('id') id: number) {
-    return this.categoryService.findOne(id);
+
+  @MessagePattern("getCategoryById")
+  findOne(@Payload() payload: { id: number }) {
+    console.log(payload.id)
+    return this.categoryService.findOne(payload.id);
   }
 
   @MessagePattern("updateCategory")
-  update(@Payload() updateCategoryDto: UpdateCategoryDto, id: number) {
-    return this.categoryService.update(id, updateCategoryDto);
+  update(@Payload() payload: { name: string, id: number }) {
+    return this.categoryService.update(payload);
   }
 
-
   @MessagePattern("deleteCategory")
-  remove(@Payload("id") id: number) {
-    return this.categoryService.remove(id);
-  } 
+  remove(@Payload() payload: { id: number }) {
+    return this.categoryService.remove(payload);
+  }
 
 
 }

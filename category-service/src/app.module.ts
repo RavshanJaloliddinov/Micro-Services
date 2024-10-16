@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { CategoryModule } from './category/category.module';
+import { CategoryModule } from './module/category/category.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Category } from './category/model';
+import { Category } from './module/category/model';
 
 
 @Module({

@@ -22,13 +22,14 @@ export class CategoryClient implements OnModuleInit {
     }
     getAllCategories() {
         return this.client.send("getAllCategories", {})
-    }   
+    }
 
     createCategory(name: string) {
         return this.client.send('createCategory', { name })
     }
 
     deleteCategory(id: number) {
+        console.log({ id })
         return this.client.send('deleteCategory', { id })
     }
 
@@ -37,6 +38,8 @@ export class CategoryClient implements OnModuleInit {
     }
 
     updateCategory(payload: CreateCategoryDto, id: number) {
+        console.log({ ...payload, id })
         return this.client.send('updateCategory', { ...payload, id })
     }
+
 }

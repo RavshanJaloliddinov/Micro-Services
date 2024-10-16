@@ -10,6 +10,10 @@ export class CategoryService {
         return this.categoryClient.getAllCategories()
     }
 
+    getCategoryById(id: number){
+        return this.categoryClient.getCategoryById(id)
+    }
+
     createCategory(name: string) {
         return this.categoryClient.createCategory(name)
     }
@@ -18,12 +22,8 @@ export class CategoryService {
         return this.categoryClient.deleteCategory(id)
     }
 
-    updateCategory(Payload: CreateCategoryDto, id: number){
-        return this.categoryClient.updateCategory(Payload, id)
-    }
-
-    getCategoryById(id: number){
-        return this.categoryClient.getCategoryById(id)
+    updateCategory(payload: CreateCategoryDto, id: number){
+        return this.categoryClient.updateCategory(payload, id)
     }
 
 }

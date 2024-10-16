@@ -1,36 +1,42 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto } from "./dtos/create.category.dto";
-import { Payload } from "@nestjs/microservices";
 import { ApiParam } from "@nestjs/swagger";
 
 @Controller('category')
 export class CateogryController {
     constructor(private service: CategoryService) { }
 
+    // Get all categories
     @Get()
     async findAll() {
-        return await this.service.getCategoryList()
-    }
-    @Get('/:id')
-    async findById(id:number) {
-        return await this.service.getCategoryById(id)
+        return this.service.getCategoryList()
     }
 
+    // Get category by id
+    @Get('/:id')
+    @ApiParam({ name: 'id', required: true })
+    async findById(@Param('id', ParseIntPipe) id: number) {
+        return this.service.getCategoryById(id)
+    }
+
+    // Create category
     @Post()
     async createCategory(@Body() payload: CreateCategoryDto) {
-        return await this.service.createCategory(payload.name)
+        return this.service.createCategory(payload.name)
     }
 
-
+    // Delete category 
     @Delete('/:id')
     @ApiParam({ name: 'id', required: true })
-    async deleteCategory(@Param() id: number) {
-        await this.service.deleteCategory(id)
+    async deleteCategory(@Param('id', ParseIntPipe) id: number) {
+        this.service.deleteCategory(id)
     }
 
+    // Update category
     @Patch("/:id")
-    async updateCategory(@Body() payload: CreateCategoryDto, @Param() id: number) {
-        return await this.service.updateCategory(payload, id)
+    @ApiParam({ name: 'id', required: true })
+    async updateCategory(@Body() payload: CreateCategoryDto, @Param('id', ParseIntPipe) id: number) {
+        return this.service.updateCategory(payload, id)
     }
 }

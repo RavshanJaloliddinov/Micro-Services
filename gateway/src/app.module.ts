@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { CategoryModule } from './modules/category';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ProductModule } from './modules/product/product.module';
+import { ChatModule } from './modules/chat';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -15,8 +17,10 @@ import { ProductModule } from './modules/product/product.module';
       models: [],
       synchronize: true
     }),
+    ChatModule,
     CategoryModule,
     ProductModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

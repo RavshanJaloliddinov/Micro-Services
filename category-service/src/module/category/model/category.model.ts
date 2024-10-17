@@ -11,4 +11,4 @@ export class Category extends Model<Category> {
         autoIncrement: true
     })
     id: number
-}
+}   

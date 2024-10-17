@@ -44,9 +44,7 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException(`ID ${id} not found`);
     }
-
     const response = await firstValueFrom(this.httpService.get(`http://localhost:3000/category/${product.category_id}`))
-
     return {
       ...product.toObject(),
       category: response.data

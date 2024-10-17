@@ -33,6 +33,10 @@ export class ProductsClient implements OnModuleInit {
     return this.client.send('getProductById', { id });
   }
 
+  findByCategory(id: number) {
+    return this.client.send('getProductsByCategory', { id })
+  }
+
   update(id: string, updateProductDto: UpdateProductDto) {
     return this.client.send('updateProductById', { id, ...updateProductDto });
   }

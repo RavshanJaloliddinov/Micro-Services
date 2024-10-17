@@ -18,6 +18,11 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
+  @MessagePattern('getProductsByCategory')
+  findByCategory(@Payload('id') id: number){
+    return this.productsService.findByCategory(id)
+  }
+
   @MessagePattern('getProductById')
   findOne(@Payload('id') id: string) {
     console.log()

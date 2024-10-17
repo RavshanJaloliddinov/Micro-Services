@@ -26,20 +26,31 @@ export class ProductsService {
     const productsWithCategory = await Promise.all(products.map(async (product) => {
       const response = await firstValueFrom(this.httpService.get(`http://localhost:3000/category/${product.category_id}`));
       return {
-        ...product.toObject(),
-        category: response.data 
+        ...product.toObject(),  
+        category: response.data
       };
-    }));
+    })); 
     return productsWithCategory;
+  } 
+
+  async findByCategory(id: number): Promise<Product[]> {
+    console.log(id)
+    return await this.productModel.find({ category_id: id }).exec()
   }
 
   // ID bo'yicha mahsulot olish
   async findOne(id: string): Promise<Product> {
     const product = await this.productModel.findById(id).exec();
     if (!product) {
-      throw new NotFoundException(`Product with ID ${id} not found`);
+      throw new NotFoundException(`ID ${id} not found`);
     }
-    return product;
+
+    const response = await firstValueFrom(this.httpService.get(`http://localhost:3000/category/${product.category_id}`))
+
+    return {
+      ...product.toObject(),
+      category: response.data
+    };
   }
 
   // Mahsulot yangilash

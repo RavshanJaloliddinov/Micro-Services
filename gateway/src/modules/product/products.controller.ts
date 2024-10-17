@@ -24,6 +24,15 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
+  @ApiOperation({ summary: 'Get product by category' })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved the product' })
+  @ApiResponse({ status: 404, description: 'Product not found' })
+  @ApiParam({ name: 'id', type: Number, description: 'Category ID' })
+  @Get(':id')
+  findByCategory(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.findByCategory(id);
+  }
+
   @ApiOperation({ summary: 'Get product by ID' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved the product' })
   @ApiResponse({ status: 404, description: 'Product not found' })

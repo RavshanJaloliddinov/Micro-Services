@@ -24,8 +24,8 @@ export class Product implements CreateProductRequest {
     @Prop({ required: true })
     category_id: number; 
 
-    @Prop()
-    category: string
+    @Prop({type: Object})
+    category: {name: string}
 }
 
 

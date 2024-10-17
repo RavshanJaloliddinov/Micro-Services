@@ -19,6 +19,10 @@ export class ProductsService {
     return await this.productsClient.findOne(id);
   }
 
+  async findByCategory(id: number) {
+    return await this.productsClient.findByCategory(id)
+  }
+
   async update(id: string, updateProductDto: UpdateProductDto) {
     return await this.productsClient.update(id, updateProductDto);
   }

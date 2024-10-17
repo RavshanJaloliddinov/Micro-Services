@@ -21,7 +21,6 @@ export class CategoryController {
 
   @MessagePattern("getCategoryById")
   findOne(@Payload() payload: { id: number }) {
-    console.log(payload.id)
     return this.categoryService.findOne(payload.id);
   }
 
